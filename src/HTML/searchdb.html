@@ -1,0 +1,52 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+ <html>   
+    <head>
+        <title> Just another anti-microbial peptide database|Search Database</title>
+        <link href="searchdb.css" rel="stylesheet" type="text/css" />
+        <a href="index.html"><div id="banner">
+            <h1>Just another AMP database</h1>
+        </div> </a>
+    </head>
+    <body>
+        <div id="wrapper" >
+            <div 
+            <div id="nav-bar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About AMPs</a></li>                    
+                    <li><a href="searchdb.html">Search database</a></li>
+                    <li><a href="blast.html">BLAST</a></li>
+                    <li><a href="resources.html">Other Resources</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                 </ul>
+            </div>
+            <div id="main-body">
+                <form method="POST" action="../cgi-bin/cgi_biblio.cgi">       
+                  <fieldset>Search by bibliography
+                     <div id="form_font">
+                     Query by author: <input name="author" type="text" size="40">
+                     Query by paper: <input name="paper" type="text" size="40">
+                     <br><br>
+                     Query by publication year (XXXX): Between <input name="yfrs" type="text" size="5"> and <input name="yfre" type="text" size="5">
+                     <br><br>
+                     Query by keyword: <input name="keyword" type="text" size="40">                         
+                     </div>
+                  <hr>     
+                  </fieldset>
+                </form>
+                <form method="POST" action="../cgi-bin/cgi_biblio.cgi">
+                  <fieldset> Search by sequence
+                     <div id="form_font">                      
+                        Query by protein sequence: <input name="sequence" type="text" size="40">  
+                        <br><br>
+                        Query by amino acid length: <input name="aa-length" type="text" size="5"> residues
+                        <br>
+                     </div>
+                  </fieldset>
+                     <input type="submit" name="Submit" value="Submit"><br>
+               </form> 
+            </div>
+        </div>
+    </body>
+ </html>

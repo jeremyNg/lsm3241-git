@@ -1,0 +1,48 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+ <html>   
+    <head>
+        <title> Just another anti-microbial peptide database|BLAST</title>
+        <link href="predictiontools.css" rel="stylesheet" type="text/css" />
+        <a href="index.html"><div id="banner">
+            <h1>Just another AMP database</h1>
+        </div></a>
+    </head>
+    <body>
+        <div id="wrapper" >
+            <div 
+            <div id="nav-bar">
+                <ul>
+                   <li><a href="index.html">Home</a></li>
+                     <li><a href="about.html">About AMPs</a></li>                    
+                    <li><a href="searchdb.html">Search database</a></li>
+                    <li><a href="blast.html">BLAST</a></li>
+                    <li><a href="resources.html">Other Resources</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                 </ul>
+            </div>
+            <div id="main-body">
+                  <fieldset> BLAST search
+                  <form method="POST" action="../cgi-bin/dbsearch_v2.cgi">
+                  <div id="select_font">   
+                  <label for="genome">Reference genome </label>
+                  <select name="genome id="genome">   
+                     <option value="H.sapiens">Homo sapiens</option>
+                  </select>
+                  </div>
+                  <br>
+                  <div id="form_font">
+                  Query sequence: <input name="sequence_homologue" type="text" size="40">
+                  <br>Include AMP database?<br>
+                  <input name="inclamp" type="radio" value="Yes" id="Yes"/><label for="yes">Yes</label><br>
+                  <input name="inclamp" type="radio" value="No" id="No"/><label for="no">No</label><br>
+                  <br>
+                  </div>
+                  <hr>
+                  <input type="submit" name="Submit" value="BLAST it!"><br>
+                  </form>
+                  </fieldset>
+            </div>
+        </div>
+    </body>
+ </html>
