@@ -6,6 +6,8 @@
 #camp_seq_sequence_index.txt
 #camp_seq_length_id.txt
 #camp_seq_length_index.txt
+#camp_seq_ref_id.txt
+#camp_seq_ref_index.txt
 
 # ID all the common IDs first (IDs without missing information)
 seq.species <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/camp_seq_species_index.txt")
@@ -14,6 +16,7 @@ seq.sequence <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/camp_s
 # length of seq.species shorter than seq.lenghth, suggesting some samples do not have a species assigned
 id.no.species <- seq.length[!seq.length%in%seq.species]
 replace.species <- rep(NA,length(id.no.species))
+
 
 # to read in the remaing data
 seq.species.id <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/camp_seq_species_id.txt")
