@@ -35,6 +35,6 @@ makeflat <- function(){
     }
 camp.flat <- makeflat() # constructs the flat file
 camp.flat <- na.omit(camp.flat)
-write.table(camp.flat,file="camp_seq_flat.txt",sep="\t") # exports the flatfile!
+write.table(camp.flat,file="~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/camp_seq_flat.txt",sep="\t") # exports the flatfile!
 
 #END OF THE SCRIPT~
