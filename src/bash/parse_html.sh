@@ -34,7 +34,8 @@ rm temp.txt
 
 ## to get the NCBI references::
 grep -A 1 "pubmed" *html| sed -e 's/^[ \t]*//g' -e 's/<td align="left"><a href=//g' -e 's/<[^>]*>//g'>temp.txt
-cat temp.txt| tr -s ' '|sed -e 's/_blank>.*/_blank/g'| sed -e 's/CAMP_SEQ[0-9]*.html-//g' -e 's/--//g'  -e 's/,[ 0-9 ]*//g' -e 's/.html:/.html,/g'>camp_seq_ref.txt # references file; to be added to the flatfile
+cat temp.txt| tr -s ' '|sed -e 's/, [ 0-9 ]* target=_blank>.*//g'| sed -e 's/CAMP_SEQ[0-9]*.html-//g' -e 's/--//g'  -e 's/,[ 0-9 ]*//g' -e 's/.html:/ /g' -e 's/target=_blank.*//g' >camp_seq_ref.txt # references file; to be added to the flatfile
+
 rm temp.txt  # removes our temp file
 
 ## to generate separate list for easy manipulation in R
@@ -46,8 +47,8 @@ cut -d "," -f2- camp_seq_sequence.txt > camp_seq_sequence_id.txt
 cut -d "," -f1 camp_seq_sequence.txt > camp_seq_sequence_index.txt
 cut -d "," -f2- camp_seq_length.txt > camp_seq_length_id.txt
 cut -d "," -f1 camp_seq_length.txt > camp_seq_length_index.txt
-cut -d "," -f1 camp_seq_ref.txt>camp_seq_ref_index.txt
-cut -d "," -f2- camp_seq_ref.txt>camp_seq_ref_id.txt
+cut -d " " -f1 camp_seq_ref.txt>camp_seq_ref_index.txt
+cut -d " " -f2- camp_seq_ref.txt>camp_seq_ref_id.txt
 
 # to run with R
 R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout
