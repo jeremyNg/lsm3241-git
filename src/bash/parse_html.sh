@@ -29,7 +29,7 @@ cut -d ";" -f1 camp_seq_sequence.txt > camp_seq_sequence_index.txt
 cut -d "," -f2- camp_seq_length.txt > camp_seq_length_id.txt
 cut -d "," -f1 camp_seq_length.txt > camp_seq_length_index.txt
 
-R CMD BATCH ../../src/construct_flat_seq.R
+R CMD BATCH ../R/construct_flat_seq.R
 
 # R output will be stored in construct_flat_seq.Rout
 
