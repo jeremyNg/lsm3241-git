@@ -1,0 +1,78 @@
+#banner{
+    background-image:url('banner.jpg');
+    width: 100%;
+    height: 100px;
+    font: 100% Verdana, Arial Helvetica, sans-serif;
+    padding: 10px;
+}
+#banner h1{
+    color: white;
+    font: 200% Verdana, Arial, Helvetica, sans-serif;
+    text-align: right;
+    padding-top: 35px;
+    padding-right: 1em;
+}
+body{
+    font: 100%/125% Verdana, Arial, Helvetica, sans-serif;
+    background: #E6E6E6;
+    margin: 0px;
+    padding: 0px;
+}
+#wrapper{
+    margin:0px;
+    padding:0px;
+    width: 100%;
+}
+#nav-bar{
+    width: 100%;
+    background: #000000;
+    font-weight: bold;
+    text-align: center;
+}
+#nav-bar ul{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    color: #FFF
+}
+#nav-bar li{
+    display: inline;
+    padding: 20px;
+ 
+}
+#nav-bar a{
+    text-decoration: none;
+    padding: 8px 8px 8px;
+    color: #FFF;
+}
+#nav-bar a:hover{
+    color:#F90;
+    background-color: #E6E6E6;
+}
+#main-body{
+    width: 100%;
+    float: left;
+    padding-top:10px;
+    background-color:#E6E6E6;
+    text-align: center;
+}
+#main-body p{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: medium;
+    padding-left: 5px;
+}
+#main-body h1{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: xx-large;
+    color: red;
+    padding-left: 10px;
+    text-align: left;
+}
+#parameters p{
+    font-size: small;
+    font-family: Helvetica, Arial, sans-serif;
+    padding-left: 10px;
+    color: black;
+    font-weight: normal;
+    text-align: left;
+}
