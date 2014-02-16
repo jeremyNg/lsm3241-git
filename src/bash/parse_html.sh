@@ -52,6 +52,6 @@ cut -d "," -f2- camp_seq_length.txt > camp_seq_length_id.txt
 cut -d "," -f1 camp_seq_length.txt > camp_seq_length_index.txt
 
 # to run with R
-R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout
+R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout in the source directory
 
 
