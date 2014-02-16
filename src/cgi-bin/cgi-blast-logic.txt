@@ -1,0 +1,22 @@
+# CGI logic for BLAST CGI
+
+# using URL API
+
+###############################
+# BEGIN CGI SCRIPT            #
+###############################
+
+# Takes in the query sequence
+# Decide if it's a BLAST against NCBI or a BLAST against our DB;
+# If BLAST against DB :
+# BLAST and return the ID of the top hits
+# elseif BLAST against NCBI:
+# use CGI to construct the URL for API;
+# Submit and wait;
+# Return the results
+
+exit;
+
+###############################
+# END CGI                     #
+###############################
