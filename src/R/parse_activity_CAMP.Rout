@@ -1,0 +1,40 @@
+
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin10.8.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> # R CMD TO parse temp.txt
+> 
+> init <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/temp.txt") # reads in temp.txt from the initially parsed file
+> final <- init[grep("Anti",init)]
+Warning messages:
+1: In grep("Anti", init) : input string 6140 is invalid in this locale
+2: In grep("Anti", init) : input string 6446 is invalid in this locale
+3: In grep("Anti", init) : input string 6617 is invalid in this locale
+4: In grep("Anti", init) : input string 9980 is invalid in this locale
+5: In grep("Anti", init) : input string 12134 is invalid in this locale
+6: In grep("Anti", init) : input string 12167 is invalid in this locale
+7: In grep("Anti", init) : input string 12179 is invalid in this locale
+> 
+> write.table(final,"~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/temp.txt")
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.442   0.032   0.464 
