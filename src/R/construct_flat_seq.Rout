@@ -1,0 +1,80 @@
+
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin10.8.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> # R script to read and construct flat file for CAMP_SEQ data
+> # assumes the following file exists::
+> #camp_seq_species_id.txt
+> #camp_seq_species_index.txt
+> #camp_seq_sequence_id.txt
+> #camp_seq_sequence_index.txt
+> #camp_seq_length_id.txt
+> #camp_seq_length_index.txt
+> #camp_html_links.txt
+> #camp_html_links_index.txt
+> 
+> # ID all the common IDs first (IDs without missing information)
+> seq.species <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_species_index.txt")
+> seq.length <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_length_index.txt")
+> seq.sequence <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_sequence_index.txt")
+> # length of seq.species shorter than seq.lenghth, suggesting some samples do not have a species assigned
+> id.no.species <- seq.length[!seq.length%in%seq.species]
+> replace.species <- rep(NA,length(id.no.species))
+> # read in the links id;
+> ref.index <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_html_links_index.txt")
+> ref.index <- ref.index[grep("CAMP_",ref.index)]
+> id.no.ref <- seq.length[!seq.length%in%ref.index]
+> # to read in the remaing data
+> seq.species.id <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_species_id.txt")
+> seq.length.id <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_length_id.txt")
+> seq.sequence.id <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_sequence_id.txt")
+> seq.references <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_html_links.txt")
+> seq.references <- seq.references[grep("http:",seq.references)]
+> # to extend the reference file
+> reference.nil <- rep("None assigned",length(id.no.ref))
+> # to extend the species list.
+> seq.species <- c(seq.species,id.no.species)
+> seq.species.id <- c(seq.species.id,replace.species)
+> ref.index <- c(ref.index,id.no.ref)
+> seq.references <- c(seq.references,reference.nil)
+> # to construct each frame, then perform a merge:
+> makeflat <- function(){
++     df1.species <- data.frame(CAMP_ID=seq.species,Species=seq.species.id)
++     df2.length <- data.frame(CAMP_ID=seq.length,Length=seq.length.id)
++     df3.sequence <- data.frame(CAMP_ID=seq.sequence,Sequence=seq.sequence.id)
++     df4.references <- data.frame(CAMP_ID=ref.index,Link=seq.references)
++     flat <- merge(x=df1.species,df2.length,by.x="CAMP_ID",by.y="CAMP_ID")
++ 
++     flat <- merge(flat,df3.sequence,by.x="CAMP_ID",by.y="CAMP_ID")
++     flat <- merge(flat,df4.references,by.x="CAMP_ID",by.y="CAMP_ID")
++     return(flat)
++     }
+> camp.flat <- makeflat() # constructs the flat file
+> camp.flat <- na.omit(camp.flat)
+> camp.flat$Database <- rep("CAMP",nrow(camp.flat))
+> setwd("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP")
+> write.table(camp.flat,file="camp_seq_flat.txt",sep="\t") # exports the flatfile!
+> 
+> #END OF THE SCRIPT~
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.544   0.039   0.567 
