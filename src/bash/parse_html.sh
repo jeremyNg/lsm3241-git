@@ -51,10 +51,9 @@ cut -d "," -f2- camp_seq_length.txt > camp_seq_length_id.txt
 cut -d "," -f1 camp_seq_length.txt > camp_seq_length_index.txt
 
 # to get activity
-grep -A 1 "Activity" *.html| sed -e 's/<[^>]*>//g' -e 's/^[\t]*//g'>temp.txt # temp.txt needs to be parsed in R::
-R CMD BATCH ../R/parse_activity_CAMP.R # modifies the file temp.txt
-awk '{print $2 }' temp.txt| sed 's/"//g' > ./curated-CAMP/activityindex.txt
-awk '{print $3 $4 $5}' temp.txt| sed 's/"//g' > ./curated-CAMP/activity.txt
+grep -A 1 "Activity" *.html| sed -e 's/<[^>]*>//g' -e 's/^[\t]*//g'| grep "Anti" >temp.txt # temp.txt needs to be parsed in R::
+awk '{print $1 }' temp.txt| sed 's/"//g' > ./curated-CAMP/activityindex.txt
+awk '{print $2 $3 $4}' temp.txt| sed 's/"//g' > ./curated-CAMP/activity.txt
 
 # to parse LAMP series of data
 mkdir curated-LAMP
