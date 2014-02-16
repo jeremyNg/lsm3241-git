@@ -13,3 +13,5 @@ do
 `$line`;
 sleep 0.5;
 done < wgetcall.txt # performs the wget
+
+rm *.txt
