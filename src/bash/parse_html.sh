@@ -49,6 +49,13 @@ cut -d "," -f1 camp_seq_sequence.txt > camp_seq_sequence_index.txt
 cut -d "," -f2- camp_seq_length.txt > camp_seq_length_id.txt
 cut -d "," -f1 camp_seq_length.txt > camp_seq_length_index.txt
 
+# to parse LAMP series of data
+mkdir curated-LAMP
+grep "Source" *.html|sed -e 's/^.*Source://g' -e 's/<.*//g'>./curated-LAMP/species.txt # parses out for the species of each lamp name
+ls *html|sed -e 's/.html//g'>./curated-LAMP/index.txt # list of all the IDs:
+grep "Length" *.html|sed -e 's/^.*Length://g' -e 's/<.*//g'>./curated-LAMP/sequencelength.txt # gets the length of aa sequence
+grep "Length" *.html|sed -e 's/^.*Sequence<br>//g' -e 's/<.*//g' -e 's/[&nbsp;]*//g'>./curated-LAMP/sequences.txt # gets the aa sequence
+# there is a file with a funny new line- we will parse it with R in the R codes
 # to run with R
 R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout in the source directory
 
