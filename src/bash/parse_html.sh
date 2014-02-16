@@ -3,19 +3,20 @@
 # install dos2unix using homebrew
 #brew install dos2unix
 
+export LC_CTYPE=C
+export LANG=C
 
-for i in $(seq 1 5047);
-do
-   dos2unix CAMP_SEQ$i.html;
-done # converts all the files from DOS to unix
+
 
 # series of bash scripts to parse html files for building flat file DB for query
 
 ## to parse CAMP_SEQ series
 #
 # to get the species of origins
-export LC_CTYPE=C
-export LANG=C
+for i in $(seq 1 5047);
+do
+   dos2unix CAMP_SEQ$i.html;
+done # converts all the files from DOS to unix
 
 ## to get species
 grep -A 1 "Source" *.html|grep "left"| sed -e 's/^[ \t]*//g' -e 's/<td align="left">//g' -e 's|</td>||g' > temp.txt # temp file for storing the data
@@ -48,6 +49,12 @@ cut -d "," -f2- camp_seq_sequence.txt > camp_seq_sequence_id.txt
 cut -d "," -f1 camp_seq_sequence.txt > camp_seq_sequence_index.txt
 cut -d "," -f2- camp_seq_length.txt > camp_seq_length_id.txt
 cut -d "," -f1 camp_seq_length.txt > camp_seq_length_index.txt
+
+# to get activity
+grep -A 1 "Activity" *.html| sed -e 's/<[^>]*>//g' -e 's/^[\t]*//g'>temp.txt # temp.txt needs to be parsed in R::
+R CMD BATCH ../R/parse_activity_CAMP.R # modifies the file temp.txt
+awk '{print $2 }' temp.txt| sed 's/"//g' > ./curated-CAMP/activityindex.txt
+awk '{print $3 $4 $5}' temp.txt| sed 's/"//g' > ./curated-CAMP/activity.txt
 
 # to parse LAMP series of data
 mkdir curated-LAMP
