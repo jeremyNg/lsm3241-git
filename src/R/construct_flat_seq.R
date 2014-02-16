@@ -40,8 +40,25 @@ makeflat <- function(){
 camp.flat <- makeflat() # constructs the flat file
 camp.flat <- na.omit(camp.flat)
 camp.flat$Database <- rep("CAMP",nrow(camp.flat))
-setwd("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP")
-write.table(camp.flat,file="camp_seq_flat.txt",sep="\t") # exports the flatfile!
+colnames(camp.flat)[1]<- "ID"
+write.table(camp.flat,file="~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_flat.txt",sep="\t") # exports the flatfile!
+
+# to construct the flatfile for LAMP as well::
+LAMPid <- readLines("~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/index.txt")
+LAMPsequence <- readLines("~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/sequences.txt")
+LAMPspecies <- readLines("~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/species.txt")
+LAMPlengths <- readLines("~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/sequencelength.txt")
+LAMPsequence <- LAMPsequence[-grep(".html",LAMPsequence)]
+LAMPlengths <- LAMPlengths[-grep(".html",LAMPlengths)]
+
+# to build the DF to make the flatfile
+lamp.flat <- data.frame(ID=LAMPid, Species=LAMPspecies,Length=LAMPlengths,Sequence=LAMPsequence)
+lamp.flat$Database <- rep("LAMP",nrow(lamp.flat))
+write.table(lamp.flat,file="~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/lamp_flat.txt",sep="\t")
+
+# to merge flatfiles, since the sequence are the same already
+mergedFF <- rbind(camp.flat,lamp.flat)
+write.table(mergedFF,file="~/Desktop/lsm3241-misc/data/consolidatedff/merged.txt",sep="\t")
 
 #END OF THE SCRIPT~
 
