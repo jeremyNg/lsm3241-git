@@ -24,25 +24,17 @@ id.no.ref <- seq.length[!seq.length%in%ref.index]
 seq.species.id <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_species_id.txt")
 seq.length.id <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_length_id.txt")
 seq.sequence.id <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_sequence_id.txt")
-seq.references <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_html_links.txt")
-seq.references <- seq.references[grep("http:",seq.references)]
-# to extend the reference file
-reference.nil <- rep("None assigned",length(id.no.ref))
+
 # to extend the species list.
 seq.species <- c(seq.species,id.no.species)
 seq.species.id <- c(seq.species.id,replace.species)
-ref.index <- c(ref.index,id.no.ref)
-seq.references <- c(seq.references,reference.nil)
 # to construct each frame, then perform a merge:
 makeflat <- function(){
     df1.species <- data.frame(CAMP_ID=seq.species,Species=seq.species.id)
     df2.length <- data.frame(CAMP_ID=seq.length,Length=seq.length.id)
     df3.sequence <- data.frame(CAMP_ID=seq.sequence,Sequence=seq.sequence.id)
-    df4.references <- data.frame(CAMP_ID=ref.index,Link=seq.references)
     flat <- merge(x=df1.species,df2.length,by.x="CAMP_ID",by.y="CAMP_ID")
-
     flat <- merge(flat,df3.sequence,by.x="CAMP_ID",by.y="CAMP_ID")
-    flat <- merge(flat,df4.references,by.x="CAMP_ID",by.y="CAMP_ID")
     return(flat)
     }
 camp.flat <- makeflat() # constructs the flat file
