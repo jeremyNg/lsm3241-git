@@ -1,4 +1,4 @@
-# R script to read and construct flat file for CAMP_SEQ data
+# R script to read and construct flat file for AMP database
 # assumes the following file exists::
 #camp_seq_species_id.txt
 #camp_seq_species_index.txt
@@ -8,6 +8,14 @@
 #camp_seq_length_index.txt
 #camp_html_links.txt
 #camp_html_links_index.txt
+
+
+#############################################################################
+# TO DO::
+# Add in activity indicator for the AMP- CAMP data has been parsed already
+# TO PARSE LAMP as well
+#############################################################################
+
 
 # ID all the common IDs first (IDs without missing information)
 seq.species <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_species_index.txt")
