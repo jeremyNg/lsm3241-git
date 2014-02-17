@@ -9,7 +9,6 @@ export LANG=C
 
 ############################################################################
 # TO DO:
-# parse LAMP data for activity to add to the DB flatfile
 ############################################################################
 
 ########################################################################################################################################################
@@ -45,8 +44,9 @@ rm temp.txt
 
 # C4: To get AMP activity
 grep -A 1 "Activity" *.html| sed -e 's/<[^>]*>//g' -e 's/^[\t]*//g'| grep "Anti" >temp.txt # temp.txt needs to be parsed in R::
-awk '{print $1 }' temp.txt| sed 's/"//g' > ./curated-CAMP/activityindex.txt
+awk '{print $1 }' temp.txt| sed 's/"//g'| sed 's/.html-//g' > ./curated-CAMP/activityindex.txt
 awk '{print $2 $3 $4}' temp.txt| sed 's/"//g' > ./curated-CAMP/activity.txt
+rm temp.txt
 # End C4 #
 
 ## to generate separate list for easy manipulation in R ##
@@ -74,6 +74,7 @@ ls *html|sed -e 's/.html//g'>./curated-LAMP/index.txt # list of all the IDs:
 grep "Length" *.html|sed -e 's/^.*Length://g' -e 's/<.*//g'>./curated-LAMP/sequencelength.txt # gets the length of aa sequence
 grep "Length" *.html|sed -e 's/^.*Sequence<br>//g' -e 's/<.*//g' -e 's/[&nbsp;]*//g'>./curated-LAMP/sequences.txt # gets the aa sequence
 # there is a file with a funny new line- we will parse it with R in the R codes
+grep "Activity" *.html| grep "nbsp"|sed -e 's/^.*Activity:/Activity:/g'| sed 's/<.*//g' >./curated-LAMP/activity.txt # to get activity of AMP
 
 # to run with R to make the flatfile
 R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout in the source directory
