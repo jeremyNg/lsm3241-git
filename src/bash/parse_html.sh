@@ -79,4 +79,4 @@ grep "Activity" *.html| grep "nbsp"|sed -e 's/^.*Activity:/Activity:/g'| sed 's/
 # to run with R to make the flatfile
 R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout in the source directory
 
-
+sed -i' ' 's/Activity://g' merged.txt # Fix a parsing error:: LAMP database will show Activity: Anti , which is inconsistent with CAMP structure 
