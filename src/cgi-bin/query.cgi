@@ -24,13 +24,15 @@ my $dbh = DBI->connect("DBI:$databtype:$database",$userid,$password) or die("can
 # NOTE : This is not a good way to specify the variable, you should replace the variable with ?
 # However, for simplicity purpose we will just put the variable directly. 
 # Find out why it is not a good idea to put the variable into the SQL statement.
-my $sth = $dbh->prepare ("SELECT * FROM base WHERE UPPER(activity) LIKE UPPER('%$keyword%') limit 100;") or die("can't prepare SQL");
+my $sth = $dbh->prepare ("SELECT * FROM base WHERE UPPER(activity) LIKE UPPER('%$keyword%');") or die("can't prepare SQL");
 
 # execute the SQL statement
 $sth-> execute();
 
 
 # Print out the HTML output if any
+$counts=$sth->rows();
+
 if($sth->rows()==0)
 {
  $Content = qq(
@@ -50,7 +52,7 @@ if($sth->rows()==0)
 <p>You have entered the search keyword(s): <font color="red">$keyword</font> </p>
 <br>
 
-<h2> Your Database Query did not retrieve any results. Please Try Again
+<h2> Your Database Query did not retrieve any results. Please <a href="http://bioslax11.bic.nus.edu.sg/searchdb.html">Try Again</a>
 </h2>
 );
 print $Content;
@@ -73,8 +75,7 @@ else
 
 <body>
 <p>You have entered the search keyword(s): <font color="red">$keyword</font> </p>
-<br>
-<p>Your database query retrieved the following result(s):</p>
+<p>Your database query retrieved the following  <font color="red">$counts</font> result(s):</p>
 
  <table width="853" border="1" cellspacing="0" cellpadding="0">
   <td width="70">ID</td>
