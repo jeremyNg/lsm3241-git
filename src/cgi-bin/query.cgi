@@ -65,7 +65,7 @@ else
 
 <html>   
     <head>
-        <title> Just another anti-microbial peptide database|Contact Us</title>
+        <title> Just another anti-microbial peptide database|Search Results</title>
         <link href="http://bioslax11.bic.nus.edu.sg/CSS/query.css" rel="stylesheet" type="text/css" />
         <a href="http://bioslax11.bic.nus.edu.sg/index.html"><div id="banner">
             <h1>Just another AMP database</h1>
@@ -75,6 +75,7 @@ else
 
 <body>
 <p>You have entered the search keyword(s): <font color="red">$keyword</font> </p>
+
 <p>Your database query retrieved the following  <font color="red">$counts</font> result(s):</p>
 
  <table width="853" border="1" cellspacing="0" cellpadding="0">
