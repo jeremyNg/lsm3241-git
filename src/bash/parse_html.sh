@@ -75,6 +75,15 @@ grep "Length" *.html|sed -e 's/^.*Length://g' -e 's/<.*//g'>./curated-LAMP/seque
 grep "Length" *.html|sed -e 's/^.*Sequence<br>//g' -e 's/<.*//g' -e 's/[&nbsp;]*//g'>./curated-LAMP/sequences.txt # gets the aa sequence
 # there is a file with a funny new line- we will parse it with R in the R codes
 grep "Activity" *.html| grep "nbsp"|sed -e 's/^.*Activity:/Activity:/g'| sed 's/<.*//g' >./curated-LAMP/activity.txt # to get activity of AMP
+################################################################################
+################################################################################
+# to parse APD series of data
+mkdir curated-APD
+grep -A 1 "Source"  *.html|grep "html-"|sed -e 's/^.*<p>//g' -e 's/<i>//g' -e 's|</i>||g' -e 's|</td>||g' -e 's/<[^>]*>//g'  >curated-APD/source.txt # parses for their organism of origin
+grep -A 1 "Sequence"  *.html|grep "html-"|sed -e 's/^.*<p>//g' -e 's/<i>//g' -e 's|</i>||g' -e 's|</td>||g' -e 's/<[^>]*>//g'  >curated-APD/source.txt
+
+
+
 
 # to run with R to make the flatfile
 R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout in the source directory
