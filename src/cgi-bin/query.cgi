@@ -44,7 +44,7 @@ else
     <head>
         <title> Just another anti-microbial peptide database|Contact Us</title>
         <link href="http://bioslax11.bic.nus.edu.sg/CSS/query.css" rel="stylesheet" type="text/css" />
-        <a href="index.html"><div id="banner">
+        <a href="http://bioslax11.bic.nus.edu.sg/index.html"><div id="banner">
             <h1>Just another AMP database</h1>
         </div></a>
     </head>
