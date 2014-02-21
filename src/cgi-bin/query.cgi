@@ -33,7 +33,28 @@ $sth-> execute();
 # Print out the HTML output if any
 if($sth->rows()==0)
 {
-    print "Your Database Query did not retrieve any results. Please Try Again";
+ $Content = qq(
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>   
+    <head>
+        <title> Just another anti-microbial peptide database|Contact Us</title>
+        <link href="http://bioslax11.bic.nus.edu.sg/CSS/query.css" rel="stylesheet" type="text/css" />
+        <a href="http://bioslax11.bic.nus.edu.sg/index.html"><div id="banner">
+            <h1>Just another AMP database</h1>
+        </div></a>
+    </head>
+
+
+<body>
+<p>You have entered the search keyword(s): <font color="red">$keyword</font> </p>
+<br>
+
+<h2> Your Database Query did not retrieve any results. Please Try Again
+</h2>
+);
+print $Content;
+   
 }
 else
 {
@@ -51,7 +72,7 @@ else
 
 
 <body>
-<p>You have entered the search keyword(s): $keyword </p>
+<p>You have entered the search keyword(s): <font color="red">$keyword</font> </p>
 <br>
 <p>Your database query retrieved the following result(s):</p>
 
