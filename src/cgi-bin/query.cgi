@@ -7,7 +7,7 @@ use CGI::Carp qw(fatalsToBrowser);
 my $cgi= new CGI;
 $q = CGI->new;
 my $keyword=$cgi->param("activity");
-print $q->header; 
+print $q->header;
 
 my $userid = "visitor";
 my $password= "";
@@ -22,7 +22,7 @@ my $dbh = DBI->connect("DBI:$databtype:$database",$userid,$password) or die("can
 # prepare the SQL statement
 #
 # NOTE : This is not a good way to specify the variable, you should replace the variable with ?
-# However, for simplicity purpose we will just put the variable directly. 
+# However, for simplicity purpose we will just put the variable directly.
 # Find out why it is not a good idea to put the variable into the SQL statement.
 my $sth = $dbh->prepare ("SELECT * FROM base WHERE UPPER(activity) LIKE UPPER('%$keyword%');") or die("can't prepare SQL");
 
@@ -38,7 +38,7 @@ if($sth->rows()==0)
  $Content = qq(
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>   
+<html>
     <head>
         <title> Just another anti-microbial peptide database|Contact Us</title>
         <link href="http://bioslax11.bic.nus.edu.sg/CSS/query.css" rel="stylesheet" type="text/css" />
@@ -63,7 +63,7 @@ else
  $Content = qq(
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>   
+<html>
     <head>
         <title> Just another anti-microbial peptide database|Search Results</title>
         <link href="http://bioslax11.bic.nus.edu.sg/CSS/query.css" rel="stylesheet" type="text/css" />
@@ -76,7 +76,7 @@ else
 <body>
 <p>You have entered the search keyword(s): <font color="red">$keyword</font> </p>
 
-<p>Your database query retrieved the following  <font color="red">$counts</font> result(s):</p>
+<p>Your database query retrieved the following <font color="red">$counts</font> result(s):</p>
 
  <table width="853" border="1" cellspacing="0" cellpadding="0">
   <td width="70">ID</td>
