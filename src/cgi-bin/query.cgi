@@ -6,7 +6,9 @@ use CGI::Carp qw(fatalsToBrowser);
 
 my $cgi= new CGI;
 $q = CGI->new;
+
 my $keyword=$cgi->param("activity");
+my $length=$cgi->param("aa-length");
 print $q->header;
 
 my $userid = "visitor";
@@ -24,7 +26,8 @@ my $dbh = DBI->connect("DBI:$databtype:$database",$userid,$password) or die("can
 # NOTE : This is not a good way to specify the variable, you should replace the variable with ?
 # However, for simplicity purpose we will just put the variable directly.
 # Find out why it is not a good idea to put the variable into the SQL statement.
-my $sth = $dbh->prepare ("SELECT * FROM base WHERE UPPER(activity) LIKE UPPER('%$keyword%');") or die("can't prepare SQL");
+my $sth = $dbh->prepare ("SELECT * FROM base 
+WHERE UPPER(activity) LIKE UPPER('%$keyword%') AND length=$length;") or die("can't prepare SQL");
 
 # execute the SQL statement
 $sth-> execute();
