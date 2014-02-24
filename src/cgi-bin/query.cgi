@@ -95,7 +95,7 @@ else
 
   while (@results=$sth->fetchrow_array())
   {
-
+     
      print "<tr>\n";
      print "<td>".$results[1]."</td>\n";
      print "<td>".$results[2]."</td>\n";
