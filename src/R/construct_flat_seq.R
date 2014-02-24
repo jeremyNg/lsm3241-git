@@ -58,7 +58,7 @@ makeflat <- function(){
     }
 camp.flat <- makeflat() # constructs the flat file
 camp.flat <- na.omit(camp.flat)
-camp.flat$Database <- rep("CAMP",nrow(camp.flat))
+camp.flat$Source <- rep("CAMP",nrow(camp.flat))
 colnames(camp.flat)[1]<- "ID"
 write.table(camp.flat,file="~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_flat.txt",sep="\t") # exports the flatfile!
 ###########################################################
@@ -83,12 +83,13 @@ LAMPlengths <- LAMPlengths[-grep(".html",LAMPlengths)]
 
 # to build the DF to make the flatfile
 lamp.flat <- data.frame(ID=LAMPid, Species=LAMPspecies,Length=LAMPlengths,Sequence=LAMPsequence, Activity=LAMPactivity)
-lamp.flat$Database <- rep("LAMP",nrow(lamp.flat))
+lamp.flat$Source <- rep("LAMP",nrow(lamp.flat))
 write.table(lamp.flat,file="~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/lamp_flat.txt",sep="\t")
 
 # to merge flatfiles, since the sequence are the same already
 mergedFF <- rbind(camp.flat,lamp.flat)
-write.table(mergedFF,file="~/Desktop/lsm3241-misc/data/consolidatedff/merged.txt",sep="\t")
+
+write.table(mergedFF,file="/Users/Jeremy/Desktop/lsm3241-misc/data/consolidated/merged.txt",sep="\t")
 
 #END OF THE SCRIPT~
 

@@ -7,8 +7,6 @@ R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
 
-  Natural language support but running in an English locale
-
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
 'citation()' on how to cite R or R packages in publications.
@@ -19,29 +17,27 @@ Type 'q()' to quit R.
 
 [Previously saved workspace restored]
 
-> # R script to read and construct flat file for CAMP database
-> # assumes the following file exists::
-> #camp_seq_species_id.txt
-> #camp_seq_species_index.txt
-> #camp_seq_sequence_id.txt
-> #camp_seq_sequence_index.txt
-> #camp_seq_length_id.txt
-> #camp_seq_length_index.txt
-> #camp_html_links.txt
-> #camp_html_links_index.txt
-> #activity.txt
-> #activityindex.txt
-> 
 > #############################################################################
 > # TO DO::
-> # Add in activity indicator for the AMP- CAMP data has been parsed already
-> # TO PARSE LAMP as well
 > #############################################################################
 > 
 > 
 > # ID all the common IDs first (IDs without missing information)
 > ##############################################
 > # CHUNK For CAMP
+> # R script to read and construct flat file for CAMP database
+> # assumes the following file exists::
+> # camp_seq_species_id.txt
+> # camp_seq_species_index.txt
+> # camp_seq_sequence_id.txt
+> # camp_seq_sequence_index.txt
+> # camp_seq_length_id.txt
+> # camp_seq_length_index.txt
+> # camp_html_links.txt
+> # camp_html_links_index.txt
+> # activity.txt
+> # activityindex.txt
+> 
 > seq.species <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_species_index.txt")
 > seq.length <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_length_index.txt")
 > seq.sequence <- readLines("~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_sequence_index.txt")
@@ -81,13 +77,21 @@ Type 'q()' to quit R.
 +     }
 > camp.flat <- makeflat() # constructs the flat file
 > camp.flat <- na.omit(camp.flat)
-> camp.flat$Database <- rep("CAMP",nrow(camp.flat))
+> camp.flat$Source <- rep("CAMP",nrow(camp.flat))
 > colnames(camp.flat)[1]<- "ID"
 > write.table(camp.flat,file="~/Desktop/lsm3241-misc/data/camp_SEQ_data_html/curated-CAMP/camp_seq_flat.txt",sep="\t") # exports the flatfile!
 > ###########################################################
 > 
 > ###########################################################
 > # Chunk for LAMP
+> # R script to read and construct flat file for CAMP database
+> # assumes the following file exists::
+> # index.txt
+> # sequences.txt
+> # species.txt
+> # sequencelength.txt
+> # activity.txt
+> 
 > LAMPid <- readLines("~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/index.txt")
 > LAMPsequence <- readLines("~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/sequences.txt")
 > LAMPspecies <- readLines("~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/species.txt")
@@ -98,16 +102,17 @@ Type 'q()' to quit R.
 > 
 > # to build the DF to make the flatfile
 > lamp.flat <- data.frame(ID=LAMPid, Species=LAMPspecies,Length=LAMPlengths,Sequence=LAMPsequence, Activity=LAMPactivity)
-> lamp.flat$Database <- rep("LAMP",nrow(lamp.flat))
+> lamp.flat$Source <- rep("LAMP",nrow(lamp.flat))
 > write.table(lamp.flat,file="~/Desktop/lsm3241-misc/data/LAMP_html/curated-LAMP/lamp_flat.txt",sep="\t")
 > 
 > # to merge flatfiles, since the sequence are the same already
 > mergedFF <- rbind(camp.flat,lamp.flat)
-> write.table(mergedFF,file="~/Desktop/lsm3241-misc/data/consolidatedff/merged.txt",sep="\t")
+> 
+> write.table(mergedFF,file="/Users/Jeremy/Desktop/lsm3241-misc/data/consolidated/merged.txt",sep="\t")
 > 
 > #END OF THE SCRIPT~
 > 
 > 
 > proc.time()
    user  system elapsed 
-  0.850   0.045   0.881 
+  0.845   0.042   0.878 
