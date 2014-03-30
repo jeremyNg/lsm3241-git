@@ -18,6 +18,11 @@ body{
     margin: 0px;
     padding: 0px;
 }
+h3{
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: medium;
+}
 #wrapper{
     margin:0px;
     padding:0px;

@@ -23,14 +23,16 @@
             </div>
             <div id="main-body">
                   <fieldset> BLAST search
-                  <form method="POST" action="../cgi-bin/dbsearch_v2.cgi">
+                  <form method="POST" action="../cgi-bin/dbsearch_v2.cgi" id="blast">
                   <br>
                   <div id="form_font">
-                  Query sequence: <input name="sequence_homologue" type="text" size="40">
+			  Query sequence: <br>
+			  <textarea form="blast" rows="10" cols="150"></textarea>
                   </div>
                   <hr>
                   <input type="submit" name="Submit" value="BLAST it!"><br>
-                  </form>
+	  </form>
+	  <br>
                   </fieldset>
             </div>
         </div>

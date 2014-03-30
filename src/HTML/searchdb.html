@@ -25,15 +25,40 @@
                 <form method="POST" action="../cgi-bin/query.cgi">
                   <fieldset> Search database
                      <div id="form_font">                      
-                        Query by amino acid
-                        length: <input name="aa-length" type="text"
-                        size="5"> residues
-                        <br><br>
-			 Query by activity: <input name="activity"
-			 type="text" size="20">
-<br>
-                     </div>
-                  </fieldset>
+                        Query by maximum amino acid
+                        length (length<): <br>
+			 <select name="length"> 
+			   <option value="700">All</option>
+			   <option value="20">20</option>
+			   <option value="30">30</option>
+			   <option value="40">40</option>
+			   <option value="50">50</option>
+			   <option value="60">60</option>
+			   <option value="70">70</option>
+	                </select>
+			  <br>
+			  Limit query by activity:<br>
+			  <select name="activity">
+				  <option value="%">All</option>
+				  <option value="Antibacterial">Antibacterial</option>
+				  <option value="Anticancer">Anticancer</option>
+				  <option value="Antifungal">Antifungal</option>
+				  <option value="Antiparasitic">Antiparasitic</option>
+				  <option value="Antiprotozoal">Antiprotozoal</option>
+				  <option value="Antiviral">Antiviral</option>
+				  <option value="NA">Not Known</option>
+				  </select>
+			  <br>
+			 Limit  query by primary database: <br>
+			  <select name="database">
+				  <option value="%">All</option>
+				  <option value="APD">APD</option>
+				  <option value="CAMP_SEQ">CAMP_SEQ</option>
+				  <option value="CAMP_STR">CAMP_STR</option>
+				  <option value="RAPD">RAPD</option>
+			</select>
+			  <br><br>
+		     </div>
                      <input type="submit" name="Submit" value="Submit"><br>
                </form> 
             </div>
