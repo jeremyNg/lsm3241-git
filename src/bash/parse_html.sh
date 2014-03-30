@@ -79,13 +79,19 @@ grep "Activity" *.html| grep "nbsp"|sed -e 's/^.*Activity:/Activity:/g'| sed 's/
 ################################################################################
 # to parse APD series of data
 mkdir curated-APD
-grep -A 1 "Source"  *.html|grep "html-"|sed -e 's/^.*<p>//g' -e 's/<i>//g' -e 's|</i>||g' -e 's|</td>||g' -e 's/<[^>]*>//g'  >curated-APD/source.txt # parses for their organism of origin
-grep -A 1 "Sequence"  *.html|grep "html-"|sed -e 's/^.*<p>//g' -e 's/<i>//g' -e 's|</i>||g' -e 's|</td>||g' -e 's/<[^>]*>//g'  >curated-APD/source.txt
-
-
-
+grep -A 1 "Source"  *.html|grep "html-"|sed -e 's/^.*<p>//g' -e 's/<i>//g' -e 's|</i>||g' -e 's|</td>||g' -e 's/<[^>]*>//g' >curated-APD/source.txt # extracts source information
+grep -A 1 "Sequence"  *.html|grep "html-"|sed -e 's/^.*<p>//g' -e 's/<i>//g' -e 's|</i>||g' -e 's|</td>||g' -e 's/<[^>]*>//g'|grep -v "nbsp"| grep -v "html" >curated-APD/sequence.txt # extracts sequence information
+grep -A 1 "Activity"  *.html|grep "html-"|sed -e 's/^.*<p>//g' -e 's/<i>//g' -e 's|</i>||g' -e 's|</td>||g' -e 's/<[^>]*>//g'|grep -v "nbsp"| grep -v "html"| sed -e 's/Gram+ & Gram-/Antibacteriocidal/g' -e 's/Gram+/Antibacteriocidal/g' -e 's/Gram-/Antibacteriocidal/g' -e 's/Fungi/Antifungal/g' -e 's/Virus/Antiviral/g' -e 's/Parasites/Antiparasitic/g' -e 's/Cancer cells/Anti-cancerous/g' -e 's/HIV/anti-HIV/g' >curated-APD/activity.txt
+ls *.html>curated-APD/IDs.txt
 
 # to run with R to make the flatfile
 R CMD BATCH ../R/construct_flat_seq.R # R stout output will be stored in construct_flat_seq.Rout in the source directory
 
-sed -i' ' 's/Activity://g' merged.txt # Fix a parsing error:: LAMP database will show Activity: Anti , which is inconsistent with CAMP structure 
+sed -i' ' 's/Activity://g' merged.txt # Fix a parsing error:: LAMP database will show Activity: Anti , which is inconsistent with CAMP structure
+
+################################################################################
+# to parse Bactibase series of data
+grep -A 1 "Producer" BAC* |sed -e 's|<td class="ui-state-default"><span>Producer Organism</span></td>||g' -e 's/^.*Strain=//g' -e 's/".*//g' -e 's/+/ /g' -e 's/--//g' -e 's/BAC[0-9]*://g' > curated-Bactibase/source.txt # get the sources (201 is problematic)
+
+
+

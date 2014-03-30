@@ -1,0 +1,8 @@
+#/usr/bin/perl
+
+# open connection to the file
+
+# get the required information from the file
+
+# write it to a new file - should be apphended to the previous file instead of re-writing a new file for each HTML
+
