@@ -13,6 +13,8 @@ grep  SwissProt *html|grep href|sed -e 's/&.*//g'|perl -lape 's/html:\s*/html|/s
 
 grep  -A 1 Reference *html|grep href|sed -e 's|<.*pubmed/||g' -e 's/">.*//g'|perl -lape 's/html-\s*/html|/sg'>extracted/PubMeds.txt # gets the pubmed IDs
 
-grep -A 1 Activity *html|grep -v Activity|grep -v '&nbsp'|sed -e 's/<.*<p>//g' -e 's/Fungi/Antifungal/g' -e 's/, <.*//g' -e 's/--//g' -e '/^\s*$/d' -e 's/,<.*//g' -e 's/Cancer cells/Anticancer/g' -e 's/Virus/Antiviral/g' -e 's/<.*//g' -e 's/Gram+/Antibacterial/g' -e 's/Gram-/Antibacterial/g' -e 's/Antibacterial & Antibacterial/Antibacterial/g' -e 's/Parasites/Antiparasitic/g' -e 's/HIV/Antiviral (HIV)/g'|perl -lape 's/html-\s*/html|/sg'>extracted/activity.txt # gets the activity, a few substitutions were made -> cancer to anticancer, fungal to antifungal, conflation of gram + and gram - bacteria 
+grep -A 1 Activity *html|grep -v Activity|grep -v '&nbsp'|sed -e 's/<.*<p>//g' -e 's/Fungi/Antifungal/g' -e 's/, <.*//g' -e 's/--//g' -e '/^\s*$/d' -e 's/,<.*//g' -e 's/Cancer cells/Anticancer/g' -e 's/Virus/Antiviral/g' -e 's/<.*//g' -e 's/Gram+/Antibacterial/g' -e 's/Gram-/Antibacterial/g' -e 's/Antibacterial & Antibacterial/Antibacterial/g' -e 's/Parasites/Antiparasitic/g' -e 's/HIV/Antiviral (HIV)/g'|perl -lape 's/html-\s*/html|/sg'>extracted/activity.txt # gets the activity, a few substitutions were made -> cancer to anticancer, fungal to antifungal, conflation of gram + and gram - bacteria
 
 grep -A 1 Additional *html|grep -v Additional|sed -e 's/--//g' -e '/^\s*$/d' -e 's/<.*<p>//g' -e 's|</td>||g'|perl -lape 's/html-\s*/html|/sg'>extracted/AdditionalInfo.txt # gets the additional information if available with a '|' delimited file
+
+grep -A 1 Source *html|grep -v Source|sed -e 's/--//g' -e '/^\s*$/d' -e 's/<td.*p>//g' -e 's|</i>.*$||g' -e 's/.html-\s*.*<i>/.html-/g' -e 's|</td>.*$||g' -e 's/<a.*>//g'|perl -lape 's/html-\s*/html|/sg' >extracted/Species.txt # species then after that manual curation

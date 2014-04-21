@@ -1,6 +1,6 @@
 # R script to make flat file for CAMP SEQ database
 
-#setwd("camp_SEQ_data_html/extracted") # changes the working directory
+setwd("camp_SEQ_data_html/extracted") # changes the working directory
 files <- gsub(".txt","",list.files()) # list the files
 filenames <- list.files() # list the files
 mapply(function(x,y){w <- read.delim(x,header = F,sep="|");assign(y,w,envir=globalenv());return(NULL)},x=filenames,y=files) # reads in the files using mapply
@@ -76,11 +76,11 @@ colnames(campName) <- c("Record","Name")
 
 # Other records
 Others <- merge(GenInfo2,Validation2,by="Record")
-Others2 <- data.frame(Record=Others$Record,Others=paste0("GenInfo (NCBI): <a href=ncbi.nlm.nih.gov/protein",Others$GenInfo,"</a>",Others$GenInfo,"<br>Validation Status:",Others$Validation,"<br>"))
+Others2 <- data.frame(Record=Others$Record,Others=paste0("GenInfo (NCBI): <a href=ncbi.nlm.nih.gov/protein",Others$GenInfo,">",Others$GenInfo,"</a><br>Validation Status:",Others$Validation,"<br>"))
 Others2 <- rbind(as.matrix(Others2),as.matrix(data.frame(Record=reference[!reference%in%Others2$Record],Others=NA)))
 Others2 <- as.data.frame(Others2)
 
-NR <- data.frame(NR=sprintf("NR%05d",sample(1:10000,nrow(campName))),Record=campName$Record)
+NR <- data.frame(Record=campName$Record,NR=sprintf("NR%05d",sample(1:10000,nrow(campName))))
 
 x <- merge(NR,campName,by="Record") # first merge
 x <- merge(x,Species2,by="Record") # add species information
@@ -95,8 +95,6 @@ x$Record <- gsub(".html","",x$Record)
 x$URL <-paste0("http://www.camp.bicnirrh.res.in/seqDisp.php?id=",x$Record)
 
 CAMPSEQ <- x # reassign name
-# to merge instead ... This will take a few lines of codes (maybe 10)
-#CAMPSEQ <- data.frame(NR=(paste0("NR",sample(1:1000000,length(reference)))),ID=gsub("CAMP_SEQ","CAMPSQ",campName$Record),Name=campName$Name,Species=paste0(Species2$Species,"/",NCBItaxonomy2$NCBItaxonomy),Sequence=Sequence2$Sequence,SequenceLength=SequenceLength2$SequenceLength,Activity=Activity2$Activity,UniProtID=UniProts2$UniProts,PubMedID=PubMeds2$PubMeds,Others=paste0("GenInfo: ",GenInfo2$GenInfo,"<br>","Validation: ",Validation2$Validation,"<br>"),URL=paste0("http://www.camp.bicnirrh.res.in/seqDisp.php?id=",gsub(".html","",Sequence2$Record))) # constructs the flatfile, use of <br> in others for HTML formatting
 
 
 write.table(CAMPSEQ,file="CAMPSEQflat.txt",sep="\t") # exports the file as a "\t" file

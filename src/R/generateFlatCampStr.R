@@ -1,6 +1,5 @@
 # R script to make flat file for CAMP STR database
 
-#setwd("camp_SEQ_data_html/extracted") # changes the working directory
 files <- gsub(".txt","",list.files()) # list the files
 filenames <- list.files() # list the files
 mapply(function(x,y){w <- read.delim(x,header = F,sep="|");assign(y,w,envir=globalenv());return(NULL)},x=filenames,y=files) # reads in the files using mapply
@@ -25,7 +24,7 @@ PDBs2 <- PDBs2[order(PDBs2$V1),] #performs a sorting for merging later
 colnames(PDBs2) <- c("Record","PDB") #sets the column names
 
 # PubMed file
-PubMeds2 <- rbind(as.matrix(PubMeds),as.matrix(data.frame(V1=reference[!reference%in%Activity$V1],V2=NA))) # creates a new dataframe of equal dimensions
+PubMeds2 <- rbind(PubMeds,data.frame(V1=reference[!reference%in%PubMeds$V1],V2=NA)) # creates a new dataframe of equal dimensions
 dim(PubMeds2)
 PubMeds2 <- as.data.frame(PubMeds2)
 PubMeds2 <- PubMeds2[order(PubMeds2$V1),] #performs a sorting for merging later
@@ -46,3 +45,29 @@ colnames(UniProts2) <- c("Record","UniProts") # sets the colnames
 UniProts2 <- as.data.frame(UniProts2)
 UniProts2 <- UniProts2[order(UniProts2$Record),] # orders for merging
 dim(UniProts2)
+
+colnames(sequenceLengths) <- c("Record","SequenceLength")
+ref.pool <-sprintf("NR%05d",1:100000)
+ref.o <- ref.pool[!ref.pool%in%CAMPSrm(AMPsEQ$NR]
+NR <- data.frame(Record=UniProts2$Record,NR=sample(ref.o,nrow(UniProts2)))
+colnames(Validation) <- c("Record","Structural determinationa")
+colnames(PDBs) <- c("Record","PDB")
+Others <- merge(PDBs,Validation,by="Record")
+ # to merge into a flatfile
+Others2 <- data.frame(Record=Others$Record, Others=paste0("<a href=http://www.rcsb.org/pdb/explore/explore.do?structureId=\"",Others$PDBa,"\">",Others$PDBa,"</a><br>","Determined by ",Others$Validation))
+x <- NR
+x$Name <- NA
+x <- merge(x,Species2,by="Record")
+x <- merge(x,Sequences,by="Record")
+x <- merge(x,sequenceLengths,by="Record")
+x <- merge(x,Activity2,by="Record")
+x <- x[-609,] # there is a duplicate entry at row 609
+x <- merge(x,UniProts2,by="Record")
+x <- merge(x,PubMeds2,by="Record")
+x <- merge(x,Others2,by="Record")
+x$Record <- gsub(".html","",x$Record)
+x$Record <- gsub("camp_STR","CAMPST",x$Record)
+x$URL <- paste0("http://www.camp.bicnirrh.res.in/jmol/strDisp.php?id=",x$Record)
+CAMPSTR <- x # reassign to CAMPSTR
+write.table(CAMPSTR,sep="\t",file="CAMPSTR.txt") # writes out the file.exists
+
